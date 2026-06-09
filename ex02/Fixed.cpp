@@ -106,7 +106,7 @@ bool Fixed::operator!=(const Fixed& other) const
     return false;
 }
 
-Fixed Fixed::operator+(const Fixed& other)
+Fixed Fixed::operator+(const Fixed& other) const
 {
     Fixed a(*this);
 
@@ -114,15 +114,15 @@ Fixed Fixed::operator+(const Fixed& other)
     return a;
 }
 
-Fixed Fixed::operator-(const Fixed& other)
+Fixed Fixed::operator-(const Fixed& other) const
 {
     Fixed a(*this);
 
-    a = this->value - other.value;
+    a.value = this->value - other.value;
     return a;
 }
 
-Fixed Fixed::operator*(const Fixed& other)
+Fixed Fixed::operator*(const Fixed& other) const
 {
     Fixed a(*this);
 
@@ -130,7 +130,7 @@ Fixed Fixed::operator*(const Fixed& other)
     return a;
 }
 
-Fixed Fixed::operator/(const Fixed& other)
+Fixed Fixed::operator/(const Fixed& other) const
 {
     Fixed a(*this);
 
@@ -174,7 +174,6 @@ std::ostream& operator<<(std::ostream& out, const Fixed& obj)
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &other)
     {
         this->value = other.value;
@@ -185,7 +184,6 @@ Fixed& Fixed::operator=(const Fixed& other)
 Fixed::Fixed()
 {
     value = 0;
-    std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int num)
@@ -195,7 +193,6 @@ Fixed::Fixed(const int num)
     for (int i = 0; i < fract ; i++)
         pwr *= 2;
     value = num * pwr;
-    std::cout << "Int constructor called" << std::endl;
 }
 
 Fixed::Fixed(const float num)
@@ -204,17 +201,14 @@ Fixed::Fixed(const float num)
     
     for (int i = 0; i < fract ; i++)
         pwr *= 2;
-    value = num * pwr;
-    std::cout << "Float constructor called" << std::endl;
+    value = roundf(num * pwr);
 }
 
 Fixed::Fixed(const Fixed& other)
 {
-    std::cout << "Copy constructor called" << std::endl;
     *this = other;
 }
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
 }

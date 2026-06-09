@@ -72,7 +72,7 @@ Fixed::Fixed(const float num)
     
     for (int i = 0; i < fract ; i++)
         pwr *= 2;
-    value = num * pwr;
+    value = roundf(num * pwr);
     std::cout << "Float constructor called" << std::endl;
 }
 
